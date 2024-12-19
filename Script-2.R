@@ -41,4 +41,19 @@ gapminder_df %>% filter(continent == "Americas", year == 2007) %>% arrange(desc(
 # 2.3.4 Creando y modificando variables: mutate() Hasta aqui quedaste en libro men 
 
 
-#en veldad en veldad, VAMOS QUE SE PUEEEEEE LOCOOOTRON
+new_gapminder <- gapminder_df %>% mutate(pop = pop/1000000)
+head(new_gapminder,n = 3)
+
+gapminder_df %>% mutate(gdp = gdpPercap * pop)
+
+#¿Cuál es la expectativa de vida al nacer promedio por continente para cada uno de los años?
+
+gapminder_df %>% group_by(year,continent) %>% summarise(mean_lifeexp = mean(lifeExp))
+
+# ¿Cuál es el país más pobre y más rico, medido por PIB per cápita, de cada continente para 
+#cada uno de los años?
+
+gapminder_df %>% group_by(country,year) %>% 
+  summarise(poor_country = min(gdpPercap
+                               rich_country = max(gdpPercap)))
+View(gapminder_df)
