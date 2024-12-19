@@ -28,7 +28,6 @@ ggplot(gapminder_argentina) +
   geom_line(colour = "#4682B4") +
   ggthemes::theme_stata()
 
-
 gapminder_Chile <- gapminder_df %>% filter(country == "Chile")
 
 esquisse::esquisser(gapminder_Chile)
@@ -40,3 +39,6 @@ gapminder_df %>% filter(continent == "Americas", year == 2007) %>% arrange(desc(
 
 
 # 2.3.4 Creando y modificando variables: mutate() Hasta aqui quedaste en libro men 
+
+
+#en veldad en veldad, VAMOS QUE SE PUEEEEEE LOCOOOTRON
