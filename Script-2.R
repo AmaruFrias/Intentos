@@ -53,7 +53,17 @@ gapminder_df %>% group_by(year,continent) %>% summarise(mean_lifeexp = mean(life
 # ¿Cuál es el país más pobre y más rico, medido por PIB per cápita, de cada continente para 
 #cada uno de los años?
 
-gapminder_df %>% group_by(country,year) %>% 
-  summarise(poor_country = min(gdpPercap
-                               rich_country = max(gdpPercap)))
+# Segunda pregunta
+gapminder_df %>% group_by(year, continent) %>%
+  summarise(poor_country = min(gdpPercap),
+            rich_country = max(gdpPercap),
+            poor_country_nom = country[gdpPercap == poor_country],
+            rich_country_nom = country[gdpPercap == rich_country])
+
+#¿Cuál es la diferencia en la expectativa de vida al nacer para cada país con respecto a la media 
+#del continente para cada año?
+
+
+
+                               
 View(gapminder_df)
