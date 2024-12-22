@@ -89,3 +89,37 @@ gapminder_sub <- gapminder_df %>%
   select(country,year,pop) %>%
   mutate(pop = round(pop / 1000000,1)) 
 head(gapminder_sub,n = 5) # Muestra las primeras cinco filas
+
+masAncho <- gapminder_sub %>%
+  pivot_wider(names_from = year,values_from = pop)
+head(masAncho,6)
+
+
+write.table(x = masAncho,
+            file = 'PaisPob.csv',
+            sep = ';',
+            row.names=FALSE)
+
+
+# El parámetro header sirve para avisar que los datos tienen una primera
+# fila que es el nombre de las columnas y check.names es otro parámetro
+# que es neceario cuando los nombres de las columnas son números
+masAncho <- read.table(file = 'PaisPob.csv',
+                       sep = ';',
+                       header=TRUE,
+                       check.names = FALSE,
+                       stringsAsFactors = FALSE)
+head(masAncho)
+
+
+masLarga <- masAncho %>% pivot_longer(cols = starts_with(c("1","2")),
+                                      names_to = "year",
+                                      values_to = "pop" )
+
+
+identical(gapminder_sub,reconstruccion)
+
+class(gapminder_df$year)
+class(masLarga$year)
+
+masLarga <- masLarga %>% mutate(year= as.integer(year))
