@@ -64,6 +64,28 @@ gapminder_df %>% group_by(year, continent) %>%
 #del continente para cada año?
 
 
-
+gapminder_df <- gapminder_df %>% group_by(continent,year) %>% mutate(mean(lifeExp)) 
                                
-View(gapminder_df)
+esquisse::esquisser(gapminder_df)
+ggplot(gapminder_df) +
+  aes(
+    x = year,
+    y = `mean(lifeExp)`,
+    colour = continent,
+    group = continent
+  ) +
+  geom_line() +
+  scale_color_hue(direction = 1) +
+  labs(
+    y = "Expectativa de vida al nacer",
+    title = "Expectativa de vida al nacer (Promedio)",
+    subtitle = "Promedio por continente",
+    caption = "Fuente: elaboración propia con base en datos de Gapminder"
+  ) +
+  theme_minimal()
+
+
+gapminder_sub <- gapminder_df %>% 
+  select(country,year,pop) %>%
+  mutate(pop = round(pop / 1000000,1)) 
+head(gapminder_sub,n = 5) # Muestra las primeras cinco filas
