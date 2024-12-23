@@ -125,3 +125,4 @@ class(masLarga$year)
 masLarga <- masLarga %>% mutate(year= as.integer(year))
 
 #https://martinmontane.github.io/CienciaDeDatosBook/transformando-nuestros-datos-data-wrangling.html
+
