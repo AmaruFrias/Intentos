@@ -72,7 +72,21 @@ gapminder_media <- gapminder_media %>% group_by(continent,year) %>%
 #9 Oceania    1952          69.3
 #10 Oceania    1957          70.3
 
-#3.¡Cuánto aumento la expectativa de vida al nacer por continente entre 2007 y 1952?
+#3.¿Cuánto aumento la expectativa de vida al nacer por continente entre 2007 y 1952?
+
+diff_continent <- gapminder_df %>%
+  # Primero calculamos la media por continente y año
+  group_by(continent, year) %>%
+  summarize(lifeExp_media = mean(lifeExp)) %>%
+  # Luego filtramos los años que queremos
+  filter(year %in% c(1952, 2007)) %>%
+  # Finalmente calculamos la diferencia por continente
+  group_by(continent) %>%
+  summarize(aumento = diff(lifeExp_media))
+
+
+
+rm(diff_1952_2007)
 #4. ¿Cuál fue el país, por conntinente que más aumentó su expectativa de vida al nacer en términos absolutos?
 #5. Entre 1952 y 2007¿Cuál fue el país que más aumento PIB per cápita?
 #¿Y por contienente?
