@@ -87,7 +87,18 @@ diff_continent <- gapminder_df %>%
 
 
 rm(diff_1952_2007)
-#4. ¿Cuál fue el país, por conntinente que más aumentó su expectativa de vida al nacer en términos absolutos?
+
+#4.¿Cuál fue el país, por conntinente que más aumentó su expectativa de vida al nacer en términos absolutos?
+
+PaislifExp <- gapminder_df %>% filter(year %in% c(1952,2007)) %>%
+  group_by(continent,country) %>%
+  summarise(cambioabsoluto = lifeExp [year == 2007] - lifeExp [year == 1952]) %>%
+  slice_max(order_by = cambioabsoluto, n=1)
+
+
+
+
+
 #5. Entre 1952 y 2007¿Cuál fue el país que más aumento PIB per cápita?
 #¿Y por contienente?
 #6. ¿ Cuanto aumento el PIB per cápita de Argentina entre 1952 y 2007?
