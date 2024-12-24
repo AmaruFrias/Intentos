@@ -101,8 +101,22 @@ PaislifExp <- gapminder_df %>% filter(year %in% c(1952,2007)) %>%
 
 #5. Entre 1952 y 2007¿Cuál fue el país que más aumento PIB per cápita?
 #¿Y por contienente?
+
+
+
+maspib <- gapminder_df %>%
+  filter(year %in% c(1952, 2007)) %>%
+  group_by(continent, country) %>%
+  summarise(cambio_pib = gdpPercap[year == 2007] - gdpPercap[year == 1952]) %>%
+  slice_max(order_by = cambio_pib, n = 1)
+  
 #6. ¿ Cuanto aumento el PIB per cápita de Argentina entre 1952 y 2007?
 #¿Y entre 1977 y 2002?
 
 
-  
+Argpib <- gapminder_df %>%
+  filter(country == "Argentina") %>%
+  filter(year %in% c(2007,1952)) %>%
+  summarise(cambioArgpib = gdpPercap[year == 2007] - gdpPercap[year == 1952])
+
+
