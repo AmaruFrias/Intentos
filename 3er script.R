@@ -117,6 +117,5 @@ maspib <- gapminder_df %>%
 Argpib <- gapminder_df %>%
   filter(country == "Argentina") %>%
   filter(year %in% c(2007,1952)) %>%
+  group_by(continent, country) %>%
   summarise(cambioArgpib = gdpPercap[year == 2007] - gdpPercap[year == 1952])
-
-
