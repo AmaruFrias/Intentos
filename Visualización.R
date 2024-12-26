@@ -90,5 +90,15 @@ gapminderAnim <- ggplot(data = gapminder_df,
   transition_time(year) + 
   ease_aes('linear')
 
+anim_save(filename="animacion.gif",
+          animation = gapminderAnim,
+          width=2100,
+          height=1500,
+          res=300)
+
+gapminderAnim
+
 view(gapminderAnim)
 
+require(tidyverse)
+infoCovid <- read_csv("https://covid.ourworldindata.org/data/ecdc/full_data.csv")
