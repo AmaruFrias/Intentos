@@ -22,4 +22,4 @@ st_distance(puntosEspaciales)/1000  # En kilómetros
 barrios <- st_read("barrios_badata")
 st_crs(barrios)
 
-# 4.4.1. CABA o
+# 4.4.1. CABA o pllkl
