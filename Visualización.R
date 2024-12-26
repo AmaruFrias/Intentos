@@ -1,5 +1,8 @@
 #Visualización 
 
+
+
+
 gapminder_df <- read.table(file = "https://raw.githubusercontent.com/martintinch0/CienciaDeDatosParaCuriosos/master/data/gapminder.csv",
                            sep=';',
                            header = TRUE,
@@ -9,7 +12,10 @@ gapminderLastCut <- gapminder_df %>% filter(year==2007)
 
 library(pacman)
 p_load("tidyverse",
-       "esquisse")
+       "esquisse",
+       "gganimate",
+       "av",
+       "gifski")
 
 esquisse::esquisser(gapminderLastCut)
 
