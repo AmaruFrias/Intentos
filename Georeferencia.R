@@ -5,21 +5,43 @@
 library(pacman)
 p_load("tidyverse", 
        "sf",   #Paquete clave para manipular datos espaciales
-       "tmap"
-       ,"mapproj") #uno de los paquetes para hacer mapas
+       "tmap",
+       "mapproj", 
+       "chilemapas", #mapas de Chile
+       "scales") #utilidad para visualización de datos
 
+mapa_comunas <- chilemapas::mapa_comunas
+mapa_comunas
 
-# Creamos un Data Frame con los datos necesarios
-datos <- data.frame(lat = c(-34.714656, 51.532068), long = c(-58.785999, 
-                                                             -0.177305), ubicacion = c("UTDT", "Abbey Road"))
-# Lo convertimos a un objeto sf
-puntosEspaciales <- st_as_sf(datos, coords = c("long", "lat"), 
-                             crs = 4326)
-st_distance(puntosEspaciales)  # En metros
+grafico_comunas <- mapa_comunas %>% 
+  st_set_geometry(mapa_comunas$geometry) %>% # asignar geometría
+  ggplot() + # gráfico
+  geom_sf() # capa geométrica
 
-st_distance(puntosEspaciales)/1000  # En kilómetros
+grafico_comunas +
+  theme_classic()
 
-barrios <- st_read("barrios_badata")
-st_crs(barrios)
+#cortar el mapa, para que muestre Chile continental
 
-# 4.4.1. CABA o pllkl
+grafico_comunas +
+  coord_sf(xlim = c(-77,-65)) +
+  theme_classic()
+
+#agrupar datos, para que el mapa sea solamente de regines
+
+mapa_regiones <- mapa_comunas %>%
+  group_by(codigo_region) %>%
+  summarise(geometry = st_union(geometry)) #resumir los datos agrupado, resumiendolos
+
+mapa_regiones
+
+#grafico por regiones 
+
+grafico_regiones <- mapa_regiones %>%
+  st_set_geometry(mapa_regiones$geometry) %>%
+  ggplot() +
+  geom_sf() +
+  coord_sf(xlim = c(-77,-65))
+
+grafico_regiones +
+  theme_classic()
